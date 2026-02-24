@@ -3,7 +3,9 @@ package com.nikhil.quantitymeasurement;
 public class QuantityMeasurementApp {
 	
 	public static class Feet{
+		
 		private final double value;
+		
 		public Feet(double value) {
 			this.value=value;
 		}
@@ -34,11 +36,14 @@ public class QuantityMeasurementApp {
 
 	
 	public static void main(String[] args) {
-		Feet feet1 = new Feet(12.01);
-		Feet feet2 = new Feet(12.01);
+		
+		Feet feet1 = new Feet(15.89);
+		Feet feet2 = new Feet(15.89);
+		
 		if(feet1.equals(feet2)) {
 			System.out.println("equal");
-		}else {
+		}
+		else {
 			System.out.println("not equal");
 		}
 
