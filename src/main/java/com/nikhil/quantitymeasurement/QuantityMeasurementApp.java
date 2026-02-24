@@ -24,14 +24,14 @@ public class QuantityMeasurementApp {
 			if(getClass() != obj.getClass()) {
 				return false;
 			}
-			Feet other= (Feet) obj;
-			return Double.compare(this.value, other.value)==0;
+			Feet other = (Feet) obj;
+			return Double.compare(this.value, other.value) == 0;
 		}
 		
-//		@Override
-//		public int hashCode() {
-//			return Double.hashCode(value);
-//		}
+		@Override
+		public int hashCode() {
+			return Double.hashCode(value);
+		}
 	}
 
 	
