@@ -28,10 +28,10 @@ public class QuantityMeasurementApp {
 			return Double.compare(this.value, other.value)==0;
 		}
 		
-		@Override
-		public int hashCode() {
-			return Double.hashCode(value);
-		}
+//		@Override
+//		public int hashCode() {
+//			return Double.hashCode(value);
+//		}
 	}
 
 	
