@@ -1,17 +1,16 @@
 package com.nikhil.quantitymeasurement;
 
 public class Length {
-	
 	private double value;
 	private LengthUnit unit;
+	private static final double EPSILON = 0.0001;
 	
 	public enum LengthUnit{
-		FEET(12.0), INCHES(1.0);
-		
+		FEET(12.0), INCHES(1.0), YARDS(36.0), CENTIMETERS(0.393701);
 		private final double conversionFactor;
 		
 		LengthUnit(double conversionFactor){
-			this.conversionFactor=conversionFactor;
+			this.conversionFactor = conversionFactor;
 		}
 		
 		public double getConversionFactor() {
@@ -19,7 +18,7 @@ public class Length {
 		}
 	}
 	
-	public Length(double value,LengthUnit unit) {
+	public Length(double value, LengthUnit unit) {
 		if(value < 0) throw new IllegalArgumentException("Length can not be less then zero or negative");
 		if(unit == null) throw new IllegalArgumentException("Unit can not be null");
 		this.value = value;
@@ -43,7 +42,7 @@ public class Length {
 			return false;
 		}
 		Length other = (Length) o;
-		return Double.compare(this.convertToBaseUnit(),other.convertToBaseUnit()) == 0;
+		return Math.abs(this.convertToBaseUnit() - other.convertToBaseUnit()) < EPSILON;
 	}
 	
 	@Override
