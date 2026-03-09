@@ -49,5 +49,13 @@ public class Length {
 	public int hashCode() {
 		return Double.hashCode(convertToBaseUnit());
 	}
+	
+	public double convertTo(LengthUnit targetUnit) {
+		if(targetUnit == null) {
+			throw new IllegalArgumentException("Unit can't be null");
+		}
+		double baseValue = convertToBaseUnit();
+		return baseValue/targetUnit.getConversionFactor();
+	}
 
 }

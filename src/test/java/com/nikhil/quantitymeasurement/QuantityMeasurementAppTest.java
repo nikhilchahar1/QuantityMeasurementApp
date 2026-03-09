@@ -187,5 +187,21 @@ class QuantityMeasurementAppTest {
 
         assertFalse(cm.equals(feet));
     }
+    
+    @Test
+    public void convertFeetToInches() {
+    	Length lengthInInches = new Length(QuantityMeasurementApp.convert(3.0, Length.LengthUnit.FEET, Length.LengthUnit.INCHES),Length.LengthUnit.INCHES);
+    	Length expectedLength = new Length(36.0,Length.LengthUnit.INCHES);
+    	
+    	assertTrue(QuantityMeasurementApp.demonstrateLengthEquality(lengthInInches,expectedLength));
+    }
+    
+    @Test
+    void convertYardsToInchesUsingOverloadedMethod() {
+    	Length lengthInInches = new Length(QuantityMeasurementApp.convert(2.0,Length.LengthUnit.YARDS, Length.LengthUnit.INCHES),Length.LengthUnit.INCHES);
+    	Length expectedLength = new Length(72.0,Length.LengthUnit.INCHES);
+    	
+    	assertTrue(QuantityMeasurementApp.demonstrateLengthEquality(lengthInInches,expectedLength));
+    }
 
 }

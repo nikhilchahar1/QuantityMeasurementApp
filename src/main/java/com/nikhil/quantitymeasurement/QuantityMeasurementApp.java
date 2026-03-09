@@ -13,8 +13,18 @@ public class QuantityMeasurementApp {
 	public static boolean demonstrateLengthEquality(Length l1, Length l2) {
 		return l1.equals(l2);
 	}
+	
+	public static double convert(double value, Length.LengthUnit sourceUnit, Length.LengthUnit targetUnit) {
+		if(!Double.isFinite(value)) throw new IllegalArgumentException("Value should be finite");
+		Length l = new Length(value, sourceUnit);
+		return l.convertTo(targetUnit); 
+	}
 
 	public static void main(String[] args) {
+		
+		System.out.print("Length conversion : ");
+		System.out.println(convert(1, Length.LengthUnit.FEET, Length.LengthUnit.INCHES) + " "+ Length.LengthUnit.INCHES);
+		
 		System.out.print("Comparison - Feet & Inches: ");
 		demonstrateLengthComparison(new Length(1.0, Length.LengthUnit.FEET),
 									new Length(12.0, Length.LengthUnit.INCHES));
