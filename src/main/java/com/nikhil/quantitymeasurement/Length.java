@@ -50,12 +50,23 @@ public class Length {
 		return Double.hashCode(convertToBaseUnit());
 	}
 	
+	@Override
+	public String toString() {
+		return value + " " +unit;
+	}
+	
 	public double convertTo(LengthUnit targetUnit) {
 		if(targetUnit == null) {
 			throw new IllegalArgumentException("Unit can't be null");
 		}
 		double baseValue = convertToBaseUnit();
 		return baseValue/targetUnit.getConversionFactor();
+	}
+	
+	public Length add(Length other) {
+		if(other == null) throw new IllegalArgumentException("Length cant be null");
+		double result = (this.convertToBaseUnit() + other.convertToBaseUnit())/this.unit.getConversionFactor();
+		return new Length(result, this.unit);
 	}
 
 }

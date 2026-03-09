@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 
 class QuantityMeasurementAppTest {
 
+	//FeetEquality
+	
 	@Test
 	void testFeetEquality_SameValue() {
 		Length f1 = new Length(11.02, Length.LengthUnit.FEET);
@@ -36,6 +38,9 @@ class QuantityMeasurementAppTest {
 		Length f1 = new Length(1.0, Length.LengthUnit.FEET);
 		assertTrue(f1.equals(f1));
 	}
+	
+	//InchEquality
+	
 	@Test
 	void testInchesEquality_SameValue() {
 		Length i1 = new Length(11.02, Length.LengthUnit.INCHES);
@@ -67,6 +72,8 @@ class QuantityMeasurementAppTest {
 		assertTrue(i1.equals(i1));
 	}
 	
+	//GenericLength
+	
 	@Test
 	void testFeetInchesComparison() {
 		Length feet = new Length(1.0, Length.LengthUnit.FEET);
@@ -80,6 +87,8 @@ class QuantityMeasurementAppTest {
 		Length inches = new Length(12.0, Length.LengthUnit.INCHES);
 		assertFalse(feet.equals(inches));
 	}
+	
+	//YardEquality
 	
 	@Test
 	void testYardInchesComparision_DifferentValue() {
@@ -188,6 +197,8 @@ class QuantityMeasurementAppTest {
         assertFalse(cm.equals(feet));
     }
     
+    //UnitConversion
+    
     @Test
     public void convertFeetToInches() {
     	Length lengthInInches = new Length(QuantityMeasurementApp.convert(3.0, Length.LengthUnit.FEET, Length.LengthUnit.INCHES),Length.LengthUnit.INCHES);
@@ -202,6 +213,40 @@ class QuantityMeasurementAppTest {
     	Length expectedLength = new Length(72.0,Length.LengthUnit.INCHES);
     	
     	assertTrue(QuantityMeasurementApp.demonstrateLengthEquality(lengthInInches,expectedLength));
+    }
+    
+    //UnitAddition
+    
+    @Test
+    void testAddition_SameUnit_FeetPlusFeet(){
+         Length ans = new Length(3.0, Length.LengthUnit.FEET);
+         Length q1 = new Length(1.0, Length.LengthUnit.FEET);
+         Length res = q1.add(new Length(2.0, Length.LengthUnit.FEET));
+         assertEquals(ans, res);
+    }
+
+    @Test
+    void testAddition_SameUnit_InchPlusInch(){
+         Length ans = new Length(12.0, Length.LengthUnit.INCHES);
+         Length q1 = new Length(6.0, Length.LengthUnit.INCHES);
+         Length res = q1.add(new Length(6.0, Length.LengthUnit.INCHES));
+         assertEquals(ans, res);
+    }
+
+     @Test
+    void testAddition_SameUnit_InchPlusFeet(){
+         Length ans = new Length(24.0, Length.LengthUnit.INCHES);
+         Length q1 = new Length(12.0, Length.LengthUnit.INCHES);
+         Length res = q1.add(new Length(1.0, Length.LengthUnit.FEET));
+         assertEquals(ans, res);
+    }
+
+    @Test
+    void testAddition_SameUnit_FeetPlusInch(){
+         Length ans = new Length(2.0, Length.LengthUnit.FEET);
+         Length q1 = new Length(1.0, Length.LengthUnit.FEET);
+         Length res = q1.add(new Length(12.0, Length.LengthUnit.INCHES));
+         assertEquals(ans, res);
     }
 
 }

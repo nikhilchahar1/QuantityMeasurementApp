@@ -20,7 +20,14 @@ public class QuantityMeasurementApp {
 		return l.convertTo(targetUnit); 
 	}
 
+	public static void demonstrateLengthAddition(Length l1, Length l2) {
+		Length additionResult = l1.add(l2);
+		System.out.println("After addition : "+additionResult);
+	}
+	
 	public static void main(String[] args) {
+		
+		demonstrateLengthAddition(new Length(1.0, Length.LengthUnit.FEET), new Length(36.0, Length.LengthUnit.INCHES));
 		
 		System.out.print("Length conversion : ");
 		System.out.println(convert(1, Length.LengthUnit.FEET, Length.LengthUnit.INCHES) + " "+ Length.LengthUnit.INCHES);
