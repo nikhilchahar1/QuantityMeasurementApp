@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import com.nikhil.quantitymeasurement.Length.LengthUnit;
+
 class QuantityMeasurementAppTest {
 
 	//FeetEquality
@@ -248,5 +250,90 @@ class QuantityMeasurementAppTest {
          Length res = q1.add(new Length(12.0, Length.LengthUnit.INCHES));
          assertEquals(ans, res);
     }
-
+    
+    //TargetUnitAddition
+    
+    @Test
+    void testAddition_ExplicitTarget_Feet(){
+        Length l1 = new Length(1.0, Length.LengthUnit.FEET);
+        Length l2 = new Length(12.0, Length.LengthUnit.INCHES);
+        Length res = l1.add(l2, LengthUnit.FEET);
+        Length ans = new Length(2, LengthUnit.FEET);
+        assertEquals(ans, res);
+    }
+    
+    @Test
+    void testAddition_ExplicitTarget_Inches() {
+    	Length res = new Length(1.0, Length.LengthUnit.FEET).add(new Length(12.0, Length.LengthUnit.INCHES), Length.LengthUnit.INCHES);
+    	Length ans = new Length(24.0, Length.LengthUnit.INCHES);
+    	
+    	assertEquals(res, ans);
+    }
+    
+    @Test
+    void testAddition_ExplicitTarget_Yards() {
+    	Length res = new Length(1.0, Length.LengthUnit.FEET).add(new Length(12.0, Length.LengthUnit.INCHES), Length.LengthUnit.YARDS);
+    	Length ans = new Length(0.6666666666666666, Length.LengthUnit.YARDS);
+    	
+    	assertEquals(res, ans);
+    }
+    
+    @Test
+    void testAddition_ExplicitTarget_Centimeters() {
+    	Length res = new Length(1.0, Length.LengthUnit.INCHES).add(new Length(1.0, Length.LengthUnit.INCHES), Length.LengthUnit.CENTIMETERS);
+    	Length ans = new Length(5.08, Length.LengthUnit.CENTIMETERS);
+    	
+    	assertEquals(res, ans);
+    }
+    
+    @Test
+    void testAddition_ExplicitTarget_SameAsSecondOperand() {
+    	Length res = new Length(2.0, Length.LengthUnit.YARDS).add(new Length(3.0, Length.LengthUnit.FEET), Length.LengthUnit.FEET);
+    	Length ans = new Length(9.0, Length.LengthUnit.FEET);
+    	
+    	assertEquals(res, ans);
+    }
+    
+    @Test
+    void testAddition_ExplicitTarget_Commutativity() {
+    	Length res = new Length(1.0, Length.LengthUnit.FEET).add(new Length(12.0, Length.LengthUnit.INCHES), Length.LengthUnit.YARDS);
+    	Length res2 = new Length(12.0, Length.LengthUnit.INCHES).add(new Length(1.0, Length.LengthUnit.FEET), Length.LengthUnit.YARDS);
+    	
+    	assertEquals(res, res2);
+    }
+    
+    @Test
+    void testAddition_ExplicitTarget_WithZero() {
+    	Length res = new Length(5.0, Length.LengthUnit.FEET).add(new Length(0.0, Length.LengthUnit.INCHES), Length.LengthUnit.YARDS);
+    	Length ans = new Length(1.6666666666666666, Length.LengthUnit.YARDS);
+    	
+    	assertEquals(res, ans);
+    }
+    
+    @Test
+    void testAddition_ExplicitTarget_NegativeValues() {
+    	assertThrows(IllegalArgumentException.class, () -> new Length(5.0, Length.LengthUnit.FEET).add(new Length(-2.0, Length.LengthUnit.FEET), Length.LengthUnit.INCHES));
+    }
+    
+    @Test
+    void testAddition_ExplicitTarget_NullTargetUnit() {
+    	assertThrows(IllegalArgumentException.class, () -> new Length(5.0, Length.LengthUnit.FEET).add(new Length(-2.0, Length.LengthUnit.FEET), null));
+    }
+    
+    @Test
+    void testAddition_ExplicitTarget_LargeToSmallScale() {
+    	Length res = new Length(1000.0, Length.LengthUnit.FEET).add(new Length(500.0, Length.LengthUnit.FEET), Length.LengthUnit.INCHES);
+    	Length ans = new Length(18000.0, Length.LengthUnit.INCHES);
+    	
+    	assertEquals(res, ans);
+    }
+    
+    @Test
+    void testAddition_ExplicitTarget_SmallToLargeScale() {
+    	Length res = new Length(12.0, Length.LengthUnit.INCHES).add(new Length(12.0, Length.LengthUnit.INCHES), Length.LengthUnit.YARDS);
+    	Length ans = new Length(0.6666666666666666, Length.LengthUnit.YARDS);
+    	
+    	assertEquals(res, ans);
+    }
+    
 }

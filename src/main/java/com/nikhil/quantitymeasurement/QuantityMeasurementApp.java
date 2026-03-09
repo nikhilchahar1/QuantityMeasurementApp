@@ -25,9 +25,16 @@ public class QuantityMeasurementApp {
 		System.out.println("After addition : "+additionResult);
 	}
 	
+	public static void demonstrateTargetLengthAddition(Length l1, Length l2, Length.LengthUnit unit) {
+		Length result = l1.add(l2, unit);
+		System.out.println("("+l1+" + "+l2+") "+unit+" = "+result);
+	}
+	
 	public static void main(String[] args) {
 		
 		demonstrateLengthAddition(new Length(1.0, Length.LengthUnit.FEET), new Length(36.0, Length.LengthUnit.INCHES));
+		
+		demonstrateTargetLengthAddition(new Length(1.0,Length.LengthUnit.FEET), new Length(36.0,Length.LengthUnit.INCHES),Length.LengthUnit.YARDS);
 		
 		System.out.print("Length conversion : ");
 		System.out.println(convert(1, Length.LengthUnit.FEET, Length.LengthUnit.INCHES) + " "+ Length.LengthUnit.INCHES);
@@ -53,4 +60,4 @@ public class QuantityMeasurementApp {
 									new Length(1.0, Length.LengthUnit.FEET)); 
 		
 	}
-}
+} 

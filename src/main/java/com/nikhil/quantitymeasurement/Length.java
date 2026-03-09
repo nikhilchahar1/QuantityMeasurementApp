@@ -69,4 +69,11 @@ public class Length {
 		return new Length(result, this.unit);
 	}
 
+	public Length add(Length other, LengthUnit unit) {
+		if(other == null) throw new IllegalArgumentException("Length cant be null");
+		if(unit == null) throw new IllegalArgumentException("Unit can't be null");
+		double result = (this.convertToBaseUnit() + other.convertToBaseUnit())/unit.getConversionFactor();
+		return new Length(result, unit);
+	}
+	
 }
