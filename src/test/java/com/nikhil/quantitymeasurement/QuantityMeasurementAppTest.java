@@ -1,341 +1,200 @@
 package com.nikhil.quantitymeasurement;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import org.junit.jupiter.api.Test;
 
 class QuantityMeasurementAppTest {
 
-	//FeetEquality
-	
-	@Test
-	void testFeetEquality_SameValue() {
-		Length f1 = new Length(11.02, LengthUnit.FEET);
-		Length f2 = new Length(11.02, LengthUnit.FEET);
-		assertTrue(f1.equals(f2));
-	}
-	
-	@Test
-	void testFeetEquality_DifferentValue() {
-		Length f1 = new Length(1.0, LengthUnit.FEET);
-		Length f2 = new Length(2.0, LengthUnit.FEET);
-		assertFalse(f1.equals(f2));
-	}
-	
-	@Test
-	void testFeetEquality_NullComparison() {
-		Length f1 = new Length(1.0, LengthUnit.FEET);
-		assertFalse(f1.equals(null));
-	}
-	
-	@Test
-	void testFeetEquality_NonNumericInput() {
-		Length f1 = new Length(1.0, LengthUnit.FEET);
-		assertFalse(f1.equals("1.0"));
-	}
-	@Test
-	void testFeetEquality_SameReference() {
-		Length f1 = new Length(1.0, LengthUnit.FEET);
-		assertTrue(f1.equals(f1));
-	}
-	
-	//InchEquality
-	
-	@Test
-	void testInchesEquality_SameValue() {
-		Length i1 = new Length(11.02, LengthUnit.INCHES);
-		Length i2 = new Length(11.02, LengthUnit.INCHES);
-		assertTrue(i1.equals(i2));
-	}
-	
-	@Test
-	void testInchesEquality_DifferentValue() {
-		Length i1 = new Length(1.0, LengthUnit.INCHES);
-		Length i2 = new Length(2.0, LengthUnit.INCHES);
-		assertFalse(i1.equals(i2));
-	}
-	
-	@Test
-	void testInchesEquality_NullComparison() {
-		Length i1 = new Length(1.0, LengthUnit.INCHES);
-		assertFalse(i1.equals(null));
-	}
-	
-	@Test
-	void testInchesEquality_NonNumericInput() {
-		Length i1 = new Length(1.0, LengthUnit.INCHES);
-		assertFalse(i1.equals("1.0"));
-	}
-	@Test
-	void testInchesEquality_SameReference() {
-		Length i1 = new Length(1.0, LengthUnit.INCHES);
-		assertTrue(i1.equals(i1));
-	}
-	
-	//GenericLength
-	
-	@Test
-	void testFeetInchesComparison() {
-		Length feet = new Length(1.0, LengthUnit.FEET);
-		Length inches = new Length(12.0, LengthUnit.INCHES);
-		assertTrue(feet.equals(inches));
-	}
-	
-	@Test
-	void testFeetInchesComparision_DifferentValue() {
-		Length feet = new Length(2.0,LengthUnit.FEET);
-		Length inches = new Length(12.0, LengthUnit.INCHES);
-		assertFalse(feet.equals(inches));
-	}
-	
-	//YardEquality
-	
-	@Test
-	void testYardInchesComparision_DifferentValue() {
-		Length yards = new Length(1.0,LengthUnit.YARDS);
-		Length inches = new Length(36.0, LengthUnit.INCHES);
-		assertTrue(yards.equals(inches));
-	}
-	
-	@Test
-	void testYardFeetComparision_DifferentValue() {
-		Length yards = new Length(1.0, LengthUnit.YARDS);
-		Length feet = new Length(3.0, LengthUnit.FEET);
-		assertTrue(yards.equals(feet));
-	}
-	@Test
-	void testCmInchesComparision_DifferentValue() {
-		Length cm = new Length(1.0, LengthUnit.CENTIMETERS);
-		Length inches = new Length(0.393701, LengthUnit.INCHES);
-		assertTrue(cm.equals(inches));
-	}
-	
-	@Test
-	void testCmFeetComparision_DifferentValue() {
-		Length cm = new Length(1.0, LengthUnit.CENTIMETERS);
-		Length feet = new Length(1.0, LengthUnit.FEET);
-		assertFalse(cm.equals(feet));
-	}
+    private static final double EPSILON = 1e-6;
 
-	@Test
-	void testFeetAndInchesEquality_SameLength() {
-		Length feet = new Length(1.0, LengthUnit.FEET);
-		Length inches = new Length(12.0, LengthUnit.INCHES);
-		
-		assertTrue(feet.equals(inches));
-	}
-	    
-	@Test
-	void testYardAndInchesEquality_SameLength() {
-		Length yard = new Length(1.0, LengthUnit.YARDS);
-	    Length inches = new Length(36.0, LengthUnit.INCHES);
+    // length equality tests
 
-        assertTrue(yard.equals(inches));
+    @ParameterizedTest
+    @EnumSource(LengthUnit.class)
+    void testEquality_SameValue_ForAllUnits(LengthUnit unit) {
+        Quantity<LengthUnit> l1 = new Quantity<>(10.0, unit);
+        Quantity<LengthUnit> l2 = new Quantity<>(10.0, unit);
+        assertTrue(l1.equals(l2));
     }
-	    
-    @Test
-    void testCentimeterAndInchesEquality_SameLength() {
-        Length cm = new Length(100.0, LengthUnit.CENTIMETERS);
-        Length inches = new Length(39.3701, LengthUnit.INCHES);
 
-        assertTrue(cm.equals(inches));
+    @ParameterizedTest
+    @EnumSource(LengthUnit.class)
+    void testEquality_DifferentValue_ForAllUnits(LengthUnit unit) {
+        Quantity<LengthUnit> l1 = new Quantity<>(10.0, unit);
+        Quantity<LengthUnit> l2 = new Quantity<>(20.0, unit);
+        assertFalse(l1.equals(l2));
     }
-	    
-    @Test
-    void testFeetAndYardEquality_SameLength() {
-        Length feet = new Length(3.0, LengthUnit.FEET);
-        Length yard = new Length(1.0, LengthUnit.YARDS);
 
-        assertTrue(feet.equals(yard));
+    @ParameterizedTest
+    @EnumSource(LengthUnit.class)
+    void testFeetEquality_NullComparison(LengthUnit unit) {
+        Quantity<LengthUnit> l1 = new Quantity<>(68.0, unit);
+        assertFalse(l1.equals(null));
     }
-	    
-    @Test
-    void testCentimeterAndFeetEquality_SameLength() {
-        Length cm = new Length(30.48, LengthUnit.CENTIMETERS);
-        Length feet = new Length(1.0, LengthUnit.FEET);
-        
-        assertTrue(cm.equals(feet));
+
+    @ParameterizedTest
+    @EnumSource(LengthUnit.class)
+    void testFeetEquality_NonNumericInput(LengthUnit unit) {
+        Quantity<LengthUnit> l1 = new Quantity<>(68.0, unit);
+        assertFalse(l1.equals("68"));
+    }
+
+    @ParameterizedTest
+    @EnumSource(LengthUnit.class)
+    void testFeetEquality_SameReference(LengthUnit unit) {
+        Quantity<LengthUnit> l1 = new Quantity<>(68.0, unit);
+        assertTrue(l1.equals(l1));
+    }
+
+    @ParameterizedTest
+    @EnumSource(LengthUnit.class)
+    void testFeetEquality_Consistent(LengthUnit unit) {
+        Quantity<LengthUnit> l1 = new Quantity<>(1.0, unit);
+        Quantity<LengthUnit> l2 = new Quantity<>(1.0, unit);
+        assertTrue(l1.equals(l2));
+        assertTrue(l1.equals(l2));
+        assertTrue(l1.equals(l2));
+    }
+
+    // cross unit test
+
+    @ParameterizedTest
+    @CsvSource({
+        "1.0,   YARDS,       36.0,    INCHES",
+        "100.0, CENTIMETERS, 39.370078, INCHES",
+        "3.0,   FEET,        1.0,     YARDS",
+        "30.48, CENTIMETERS, 1.0,     FEET"
+    })
+    void testCrossUnitEquality_SameLength(double v1, LengthUnit u1,double v2, LengthUnit u2) {
+        Quantity<LengthUnit> l1 = new Quantity<>(v1, u1);
+        Quantity<LengthUnit> l2 = new Quantity<>(v2, u2);
+        assertTrue(l1.equals(l2));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "2.0,    YARDS,       36.0,    INCHES",
+        "1000.0, CENTIMETERS, 39.3701, INCHES",
+        "3.0,    FEET,        3.0,     YARDS",
+        "30.48,  CENTIMETERS, 2.0,     FEET"
+    })
+    void testCrossUnitEquality_DifferentLength(double v1, LengthUnit u1,double v2, LengthUnit u2) {
+        Quantity<LengthUnit> l1 = new Quantity<>(v1, u1);
+        Quantity<LengthUnit> l2 = new Quantity<>(v2, u2);
+        assertFalse(l1.equals(l2));
+    }
+
+    // unit conversion
+
+    @ParameterizedTest
+    @CsvSource({
+        "6.0,  FEET,        YARDS,       2.0",
+        "5.0,  FEET,        FEET,        5.0",
+        "0.0,  FEET,        INCHES,      0.0",
+        "-1.0, FEET,        INCHES,      -12.0"
+    })
+    void testConversion(double value, LengthUnit source,LengthUnit target, double expected) {
+        Quantity<LengthUnit> l = new Quantity<>(value, source);
+        assertEquals(expected, l.convertTo(target), EPSILON);
+    }
+
+    @ParameterizedTest
+    @EnumSource(LengthUnit.class)
+    void testRoundTrip_AllUnitsToMetreAndBack(LengthUnit unit) {
+        double original  = 1.0;
+        double converted = new Quantity<>(original, unit).convertTo(LengthUnit.CENTIMETERS);
+        double back = new Quantity<>(converted, LengthUnit.CENTIMETERS).convertTo(unit);
+        assertEquals(original, back, EPSILON);
     }
 
     @Test
-    void testFeetAndInchesEquality_DifferentLength() {
-        Length feet = new Length(2.0, LengthUnit.FEET);
-        Length inches = new Length(12.0, LengthUnit.INCHES);
-
-        assertFalse(feet.equals(inches));
-    }
-	    
-    @Test
-    void testYardAndInchesEquality_DifferentLength() {
-        Length yard = new Length(2.0, LengthUnit.YARDS);
-        Length inches = new Length(36.0, LengthUnit.INCHES);
-
-        assertFalse(yard.equals(inches));
-    }
-	    
-    @Test
-    void testCentimeterAndInchesEquality_DifferentLength() {
-        Length cm = new Length(1000.0, LengthUnit.CENTIMETERS);
-        Length inches = new Length(39.3701, LengthUnit.INCHES);
-
-        assertFalse(cm.equals(inches));
-    }
-	    
-    @Test
-    void testFeetAndYardEquality_DifferentLength() {
-        Length feet = new Length(3.0, LengthUnit.FEET);
-        Length yard = new Length(3.0, LengthUnit.YARDS);
-
-        assertFalse(feet.equals(yard));
-    }
-	    
-    @Test
-    void testCentimeterAndFeetEquality_DifferentLength() {
-        Length cm = new Length(30.48, LengthUnit.CENTIMETERS);
-        Length feet = new Length(2.0, LengthUnit.FEET);
-
-        assertFalse(cm.equals(feet));
-    }
-    
-    //UnitConversion
-    
-    @Test
-    public void convertFeetToInches() {
-    	Length lengthInInches = new Length(QuantityMeasurementApp.convert(3.0, LengthUnit.FEET, LengthUnit.INCHES),LengthUnit.INCHES);
-    	Length expectedLength = new Length(36.0, LengthUnit.INCHES);
-    	
-    	assertTrue(QuantityMeasurementApp.demonstrateLengthEquality(lengthInInches,expectedLength));
-    }
-    
-    @Test
-    void convertYardsToInchesUsingOverloadedMethod() {
-    	Length lengthInInches = new Length(QuantityMeasurementApp.convert(2.0, LengthUnit.YARDS, LengthUnit.INCHES), LengthUnit.INCHES);
-    	Length expectedLength = new Length(72.0, LengthUnit.INCHES);
-    	
-    	assertTrue(QuantityMeasurementApp.demonstrateLengthEquality(lengthInInches,expectedLength));
-    }
-    
-    //UnitAddition
-    
-    @Test
-    void testAddition_SameUnit_FeetPlusFeet(){
-         Length ans = new Length(3.0, LengthUnit.FEET);
-         Length q1 = new Length(1.0, LengthUnit.FEET);
-         Length res = q1.add(new Length(2.0, LengthUnit.FEET));
-         assertEquals(ans, res);
+    void testConversion_NaN_throws() {
+        assertThrows(IllegalArgumentException.class, () -> new Quantity<>(Double.NaN, LengthUnit.FEET));
     }
 
     @Test
-    void testAddition_SameUnit_InchPlusInch(){
-         Length ans = new Length(12.0, LengthUnit.INCHES);
-         Length q1 = new Length(6.0, LengthUnit.INCHES);
-         Length res = q1.add(new Length(6.0, LengthUnit.INCHES));
-         assertEquals(ans, res);
-    }
-
-     @Test
-    void testAddition_SameUnit_InchPlusFeet(){
-         Length ans = new Length(24.0, LengthUnit.INCHES);
-         Length q1 = new Length(12.0, LengthUnit.INCHES);
-         Length res = q1.add(new Length(1.0, LengthUnit.FEET));
-         assertEquals(ans, res);
+    void testConversion_Infinite_throws() {
+        assertThrows(IllegalArgumentException.class,() -> new Quantity<>(Double.POSITIVE_INFINITY, LengthUnit.FEET));
     }
 
     @Test
-    void testAddition_SameUnit_FeetPlusInch(){
-         Length ans = new Length(2.0, LengthUnit.FEET);
-         Length q1 = new Length(1.0, LengthUnit.FEET);
-         Length res = q1.add(new Length(12.0, LengthUnit.INCHES));
-         assertEquals(ans, res);
+    void testConversion_NullUnit_throws() {
+        assertThrows(IllegalArgumentException.class,() -> new Quantity<>(1.0, null));
     }
-    
-    //TargetUnitAddition
-    
+
+    // add test
+
+    @ParameterizedTest
+    @CsvSource({
+        "6.0,       INCHES,      6.0,  INCHES,      12.0",
+        "1.0,       FEET,        12.0, INCHES,      2.0",
+        "12.0,      INCHES,      1.0,  FEET,        24.0",
+        "1000000.0, FEET,        1000000.0, FEET,   2000000.0",
+        "0.001,     FEET,        0.002, FEET,       0.003"
+    })
+    void testAdd(double v1, LengthUnit u1,double v2, LengthUnit u2,double expectedValue) {
+        Quantity<LengthUnit> l1 = new Quantity<>(v1, u1);
+        Quantity<LengthUnit> l2 = new Quantity<>(v2, u2);
+        Quantity<LengthUnit> result = l1.add(l2);
+        assertEquals(expectedValue, result.getValue(), EPSILON);
+        assertEquals(u1, result.getUnit());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        // Same Unit Operations
+        "1.0,  YARDS,       1.0,  YARDS,       YARDS,       2.0",
+        "2.54, CENTIMETERS, 2.54, CENTIMETERS, CENTIMETERS, 5.08",
+
+        // FEET + INCHES
+        "1.0, FEET, 12.0, INCHES, FEET,   2.0",
+        "1.0, FEET, 12.0, INCHES, YARDS,  0.666667",
+
+        // YARDS + FEET
+        "1.0, YARDS, 3.0, FEET, YARDS,  2.0",
+        "1.0, YARDS, 3.0, FEET, INCHES, 72.0",
+
+        // INCHES + YARDS
+        "36.0, INCHES, 1.0, YARDS, FEET,  6.0",
+        "36.0, INCHES, 1.0, YARDS, YARDS, 2.0",
+
+        // CENTIMETERS + INCHES
+        "2.54, CENTIMETERS, 1.0, INCHES, CENTIMETERS, 5.08",
+        "2.54, CENTIMETERS, 1.0, INCHES, INCHES,      2.0",
+
+        // Zero value
+        "5.0, FEET, 0.0, INCHES, YARDS, 1.666667",
+
+        // Negative values
+        "5.0, FEET, -2.0, FEET, INCHES, 36.0",
+
+        // Large scale
+        "1000.0, FEET, 500.0, FEET, INCHES, 18000.0",
+
+        // Small scale
+        "12.0, INCHES, 12.0, INCHES, YARDS, 0.666667"
+    })
+    void testTargetAdd(double v1, LengthUnit u1,double v2, LengthUnit u2,LengthUnit target, double expectedValue) {
+        Quantity<LengthUnit> l1 = new Quantity<>(v1, u1);
+        Quantity<LengthUnit> l2 = new Quantity<>(v2, u2);
+        Quantity<LengthUnit> result = l1.add(l2, target);
+        assertEquals(expectedValue, result.getValue(), EPSILON);
+        assertEquals(target, result.getUnit());
+    }
+
     @Test
-    void testAddition_ExplicitTarget_Feet(){
-        Length l1 = new Length(1.0, LengthUnit.FEET);
-        Length l2 = new Length(12.0, LengthUnit.INCHES);
-        Length res = l1.add(l2, LengthUnit.FEET);
-        Length ans = new Length(2, LengthUnit.FEET);
-        assertEquals(ans, res);
+    void testAdd_NullLength() {
+        Quantity<LengthUnit> l1 = new Quantity<>(1.0, LengthUnit.FEET);
+        assertThrows(IllegalArgumentException.class,() -> l1.add(null));
     }
-    
+
     @Test
-    void testAddition_ExplicitTarget_Inches() {
-    	Length res = new Length(1.0, LengthUnit.FEET).add(new Length(12.0, LengthUnit.INCHES), LengthUnit.INCHES);
-    	Length ans = new Length(24.0,LengthUnit.INCHES);
-    	
-    	assertEquals(res, ans);
+    void testTargetAdd_NullLength() {
+        Quantity<LengthUnit> l1 = new Quantity<>(1.0, LengthUnit.FEET);
+        assertThrows(IllegalArgumentException.class,() -> l1.add(null, null));
     }
-    
-    @Test
-    void testAddition_ExplicitTarget_Yards() {
-    	Length res = new Length(1.0, LengthUnit.FEET).add(new Length(12.0, LengthUnit.INCHES), LengthUnit.YARDS);
-    	Length ans = new Length(0.667, LengthUnit.YARDS);
-    	
-    	assertEquals(res.getValue(), ans.getValue(), 0.01);
-    }
-    
-    @Test
-    void testAddition_ExplicitTarget_Centimeters() {
-    	Length res = new Length(1.0, LengthUnit.INCHES).add(new Length(1.0, LengthUnit.INCHES), LengthUnit.CENTIMETERS);
-    	Length ans = new Length(5.08, LengthUnit.CENTIMETERS);
-    	
-    	assertEquals(res, ans);
-    }
-    
-    @Test
-    void testAddition_ExplicitTarget_SameAsSecondOperand() {
-    	Length res = new Length(2.0, LengthUnit.YARDS).add(new Length(3.0, LengthUnit.FEET), LengthUnit.FEET);
-    	Length ans = new Length(9.0, LengthUnit.FEET);
-    	
-    	assertEquals(res, ans);
-    }
-    
-    @Test
-    void testAddition_ExplicitTarget_Commutativity() {
-    	Length res = new Length(1.0, LengthUnit.FEET).add(new Length(12.0, LengthUnit.INCHES), LengthUnit.YARDS);
-    	Length res2 = new Length(12.0, LengthUnit.INCHES).add(new Length(1.0, LengthUnit.FEET), LengthUnit.YARDS);
-    	
-    	assertEquals(res, res2);
-    }
-    
-    @Test
-    void testAddition_ExplicitTarget_WithZero() {
-    	Length res = new Length(5.0, LengthUnit.FEET).add(new Length(0.0, LengthUnit.INCHES), LengthUnit.YARDS);
-    	Length ans = new Length(1.667, LengthUnit.YARDS);
-    	
-    	assertEquals(res.getValue(), ans.getValue(), 0.01);
-    }
-    
-    @Test
-    void testAddition_ExplicitTarget_NegativeValues() {
-    	Length l1 = new Length(5.0, LengthUnit.FEET);
-    	Length res = l1.add(new Length(-2.0, LengthUnit.FEET), LengthUnit.INCHES);
-    	Length ans = new Length(36.0, LengthUnit.INCHES);
-    	
-    	assertEquals(res, ans);
-    }
-    
-    @Test
-    void testAddition_ExplicitTarget_NullTargetUnit() {
-    	assertThrows(IllegalArgumentException.class, () -> new Length(5.0, LengthUnit.FEET).add(new Length(-2.0, LengthUnit.FEET), null));
-    }
-    
-    @Test
-    void testAddition_ExplicitTarget_LargeToSmallScale() {
-    	Length res = new Length(1000.0, LengthUnit.FEET).add(new Length(500.0, LengthUnit.FEET), LengthUnit.INCHES);
-    	Length ans = new Length(18000.0, LengthUnit.INCHES);
-    	
-    	assertEquals(res, ans);
-    }
-    
-    @Test
-    void testAddition_ExplicitTarget_SmallToLargeScale() {
-    	Length res = new Length(12.0, LengthUnit.INCHES).add(new Length(12.0, LengthUnit.INCHES), LengthUnit.YARDS);
-    	Length ans = new Length(0.667, LengthUnit.YARDS);
-    	
-    	assertEquals(res.getValue(), ans.getValue(), 0.01);
-    }
-    
 }

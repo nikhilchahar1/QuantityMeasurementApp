@@ -1,6 +1,6 @@
 package com.nikhil.quantitymeasurement;
 
-public enum WeightUnit {
+public enum WeightUnit implements IMeasurable{
 	MILLIGRAM(0.000001),
 	GRAM(0.001),
 	KILOGRAM(1.0),
@@ -17,10 +17,10 @@ public enum WeightUnit {
 	public double getConversionFactor() {
 		return conversionFactor;
 	}
-	public double toBase(double value) {
+	public double convertToBaseUnit(double value) {
 		return value*getConversionFactor();
 	}
-	public double fromBase(double value) {
+	public double convertFromBaseUnit(double value) {
 		return value/getConversionFactor();
-	}
+	} 
 }
