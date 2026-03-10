@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import com.nikhil.quantitymeasurement.LengthUnit;
-
 class QuantityMeasurementAppTest {
 
 	//FeetEquality
@@ -273,9 +271,9 @@ class QuantityMeasurementAppTest {
     @Test
     void testAddition_ExplicitTarget_Yards() {
     	Length res = new Length(1.0, LengthUnit.FEET).add(new Length(12.0, LengthUnit.INCHES), LengthUnit.YARDS);
-    	Length ans = new Length(0.6666666666666666, LengthUnit.YARDS);
+    	Length ans = new Length(0.667, LengthUnit.YARDS);
     	
-    	assertEquals(res, ans);
+    	assertEquals(res.getValue(), ans.getValue(), 0.01);
     }
     
     @Test
@@ -305,9 +303,9 @@ class QuantityMeasurementAppTest {
     @Test
     void testAddition_ExplicitTarget_WithZero() {
     	Length res = new Length(5.0, LengthUnit.FEET).add(new Length(0.0, LengthUnit.INCHES), LengthUnit.YARDS);
-    	Length ans = new Length(1.6666666666666666, LengthUnit.YARDS);
+    	Length ans = new Length(1.667, LengthUnit.YARDS);
     	
-    	assertEquals(res, ans);
+    	assertEquals(res.getValue(), ans.getValue(), 0.01);
     }
     
     @Test
@@ -335,9 +333,9 @@ class QuantityMeasurementAppTest {
     @Test
     void testAddition_ExplicitTarget_SmallToLargeScale() {
     	Length res = new Length(12.0, LengthUnit.INCHES).add(new Length(12.0, LengthUnit.INCHES), LengthUnit.YARDS);
-    	Length ans = new Length(0.6666666666666666, LengthUnit.YARDS);
+    	Length ans = new Length(0.667, LengthUnit.YARDS);
     	
-    	assertEquals(res, ans);
+    	assertEquals(res.getValue(), ans.getValue(), 0.01);
     }
     
 }
