@@ -52,6 +52,22 @@ public class QuantityMeasurementApp {
 		System.out.println("Converted weight(in unit of first quantity) after addition of both weights : "+demonstrateAddition(weightInGrams, weightInKilograms));
 		
 		System.out.println("Converted length in Milligrams : "+demonstrateAddition(weightInGrams, weightInKilograms, WeightUnit.MILLIGRAM));
+		System.out.println();
+		
+		// Now for Volume
+		Quantity<VolumeUnit> volumeInML = new Quantity<>(1000.0,VolumeUnit.MILLILITRE);
+		Quantity<VolumeUnit> volumeInL = new Quantity<>(1.0,VolumeUnit.LITRE);
+		System.out.println("Volume in Millilitre : "+volumeInML+"\nVolume in Litre : "+volumeInL);
+		boolean areVolumeEqual = demonstrateEquality(volumeInML, volumeInL);
+		System.out.println("Are volumes equal: "+areVolumeEqual);
+		
+		Quantity<VolumeUnit> convertedVolume = demonstrateConversion(volumeInML,VolumeUnit.LITRE);
+		System.out.println("Weight in grams converted in Litre : "+convertedVolume);
+		
+		System.out.println("Converted volume(in unit of first quantity) after addition of both volume : "+demonstrateAddition(volumeInML, volumeInL));
+		
+		System.out.println("Converted volume in Gallon : "+demonstrateAddition(volumeInML,volumeInL,VolumeUnit.GALLON));
+		
 	}
 
 } 

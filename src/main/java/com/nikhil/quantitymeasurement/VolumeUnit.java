@@ -1,17 +1,14 @@
 package com.nikhil.quantitymeasurement;
 
-public enum WeightUnit implements IMeasurable{
-	MILLIGRAM(0.000001),
-	GRAM(0.001),
-	KILOGRAM(1.0),
-	POUND(0.453592),
-	OUNCE(0.0283495),
-	TONNE(1000.0);
+public enum VolumeUnit implements IMeasurable {
+	MILLILITRE(0.001),
+	LITRE(1.0),
+	GALLON(3.78541);
 	
 	private final double conversionFactor;
 	
-	WeightUnit(double conversionFactor) {
-		this.conversionFactor = conversionFactor;
+	VolumeUnit(double conversionFactor){
+		this.conversionFactor=conversionFactor;
 	}
 	
 	public double getConversionFactor() {
@@ -24,5 +21,6 @@ public enum WeightUnit implements IMeasurable{
 	
 	public double convertFromBaseUnit(double value) {
 		return value/getConversionFactor();
-	} 
+	}
+	
 }
