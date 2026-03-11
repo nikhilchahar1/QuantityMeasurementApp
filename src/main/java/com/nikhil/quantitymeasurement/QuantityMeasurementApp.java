@@ -19,6 +19,18 @@ public class QuantityMeasurementApp {
 		return q1.add(q2, targetUnit);
 	}
 
+	public static <U extends IMeasurable> Quantity<U> demonstrateSubtraction(Quantity<U> q1, Quantity<U> q2, U targetUnit){
+		return q1.subtract(q2, targetUnit);
+	}
+	
+	public static <U extends IMeasurable> Quantity<U> demonstrateSubtraction(Quantity<U> q1, Quantity<U> q2){
+		return q1.subtract(q2);
+	}
+	
+	public static <U extends IMeasurable> double demonstrateDivision(Quantity<U> q1, Quantity<U> q2) {
+		return q1.divide(q2);
+	}
+	
 	public static void main(String[] args) {
 		
 		// For Length
@@ -37,6 +49,13 @@ public class QuantityMeasurementApp {
 				
 		//Demonstrate addition of two quantities and return the result in the target unit
 		System.out.println("Converted length in Centimeters : "+demonstrateAddition(lengthInInches, lengthInFeet, LengthUnit.CENTIMETERS));
+		
+		//Demonstrate subtraction of two quantities and return the result
+		System.out.println("Converted length after subtraction : "+demonstrateSubtraction(lengthInInches, lengthInFeet));
+		
+		System.out.println("Converted length into target unit after subtraction : "+demonstrateSubtraction(lengthInInches, lengthInFeet, LengthUnit.CENTIMETERS));
+		
+		System.out.println("Converted length after addition : "+demonstrateDivision(lengthInInches, lengthInFeet));
 		System.out.println();
 		
 		//Same for Weight
@@ -51,7 +70,13 @@ public class QuantityMeasurementApp {
 		
 		System.out.println("Converted weight(in unit of first quantity) after addition of both weights : "+demonstrateAddition(weightInGrams, weightInKilograms));
 		
-		System.out.println("Converted length in Milligrams : "+demonstrateAddition(weightInGrams, weightInKilograms, WeightUnit.MILLIGRAM));
+		System.out.println("Converted weight in Milligrams : "+demonstrateAddition(weightInGrams, weightInKilograms, WeightUnit.MILLIGRAM));
+		
+		System.out.println("Converted weight after subtraction : "+demonstrateSubtraction(weightInGrams, weightInKilograms));
+		
+		System.out.println("Converted weight into target unit after subtraction : "+demonstrateSubtraction(weightInGrams,weightInKilograms,WeightUnit.MILLIGRAM));
+		
+		System.out.println("Converted weight after division : "+demonstrateDivision(weightInGrams,weightInKilograms));
 		System.out.println();
 		
 		// Now for Volume
@@ -62,12 +87,18 @@ public class QuantityMeasurementApp {
 		System.out.println("Are volumes equal: "+areVolumeEqual);
 		
 		Quantity<VolumeUnit> convertedVolume = demonstrateConversion(volumeInML,VolumeUnit.LITRE);
-		System.out.println("Weight in grams converted in Litre : "+convertedVolume);
+		System.out.println("Volume in millilitres converted in Litre : "+convertedVolume);
 		
 		System.out.println("Converted volume(in unit of first quantity) after addition of both volume : "+demonstrateAddition(volumeInML, volumeInL));
 		
 		System.out.println("Converted volume in Gallon : "+demonstrateAddition(volumeInML,volumeInL,VolumeUnit.GALLON));
 		
+		System.out.println("Converted volume after subtraction : "+demonstrateSubtraction(volumeInML, volumeInL));
+	
+		System.out.println("Converted volume into target unit after subtraction : "+demonstrateSubtraction(volumeInL, volumeInML, VolumeUnit.MILLILITRE));
+
+		System.out.println("Converted volume after division : "+demonstrateDivision(weightInGrams,weightInKilograms));
+
 	}
 
 } 
