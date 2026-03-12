@@ -343,5 +343,5 @@ class WeightTest {
 
         assertThrows(IllegalArgumentException.class, () -> w1.divide(w2));
     }
-    
+     
 }
