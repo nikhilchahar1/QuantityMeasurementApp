@@ -98,7 +98,23 @@ public class QuantityMeasurementApp {
 		System.out.println("Converted volume into target unit after subtraction : "+demonstrateSubtraction(volumeInL, volumeInML, VolumeUnit.MILLILITRE));
 
 		System.out.println("Converted volume after division : "+demonstrateDivision(weightInGrams,weightInKilograms));
+		System.out.println();
+		
+		//Temperature 
+		Quantity<TemperatureUnit> q1 = new Quantity<>(0.0, TemperatureUnit.CELSIUS);
+		Quantity<TemperatureUnit> q2 = new Quantity<>(32.0, TemperatureUnit.FAHRENHEIT);
+		System.out.println("0 C equals 32 F: "+q1.equals(q2));
+		
+		Quantity<TemperatureUnit> celsius= new Quantity<>(100.0, TemperatureUnit.CELSIUS);
+		Quantity<TemperatureUnit> fahrenheit= demonstrateConversion(celsius,TemperatureUnit.FAHRENHEIT);
+		System.out.println("Coverted 100 C to fahrenheit = "+fahrenheit);
 
+		try {
+			demonstrateAddition(celsius,new Quantity<>(50.0, TemperatureUnit.CELSIUS));
+		}catch(UnsupportedOperationException e) {
+			System.out.println(e.getMessage());
+		}
+		
 	}
 
 } 
