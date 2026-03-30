@@ -1,4 +1,4 @@
-package com.nikhil.quantitymeasurement;
+package com.nikhil.quantitymeasurement.domain;
 
 public class Quantity<U extends IMeasurable> {
 	

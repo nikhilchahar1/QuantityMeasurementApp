@@ -1,4 +1,4 @@
-package com.nikhil.quantitymeasurement;
+package com.nikhil.quantitymeasurement.domain;
 
 public enum WeightUnit implements IMeasurable{
 	MILLIGRAM(0.000001),

@@ -1,4 +1,4 @@
-package com.nikhil.quantitymeasurement;
+package com.nikhil.quantitymeasurement.domain;
 
 import java.util.function.DoubleBinaryOperator;
 

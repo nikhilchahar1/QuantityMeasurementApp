@@ -2,6 +2,10 @@ package com.nikhil.quantitymeasurement;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.params.provider.*;
+
+import com.nikhil.quantitymeasurement.domain.Quantity;
+import com.nikhil.quantitymeasurement.domain.WeightUnit;
+
 import org.junit.jupiter.params.*;
 
 import org.junit.jupiter.api.Test;

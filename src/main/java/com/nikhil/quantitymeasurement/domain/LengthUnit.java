@@ -1,4 +1,4 @@
-package com.nikhil.quantitymeasurement;
+package com.nikhil.quantitymeasurement.domain;
 
 public enum LengthUnit implements IMeasurable{
 	FEET(12.0),
