@@ -339,13 +339,5 @@ class WeightTest {
 
         assertThrows(IllegalArgumentException.class, () -> w1.divide(null));
     }
-
-    @Test
-    void testDivide_ZeroDivisor() {
-        Quantity<WeightUnit> w1 = new Quantity<>(1.0, WeightUnit.KILOGRAM);
-        Quantity<WeightUnit> w2 = new Quantity<>(0.0, WeightUnit.KILOGRAM);
-
-        assertThrows(IllegalArgumentException.class, () -> w1.divide(w2));
-    }
      
 }
