@@ -26,7 +26,7 @@ This project follows a **progressive development approach**, where each use case
 | UC | Branch | Description |
 |----|--------|-------------|
 | UC1 | [`feature/UC1-FeetEquality`](https://github.com/nikhilchahar1/QuantityMeasurementApp/tree/feature/UC1-FeetEquality) | Validate equality between two feet values |
-| UC2 | [`feature/UC2-InchEquality`](https://github.com/nikhilchahar1/QuantityMeasurementApp/tree/feature/UC2-FeetAndInchesMeasurementEquality) | Validate equality between two inch values |
+| UC2 | [`feature/UC2-FeetAndInchesMeasurementEquality`](https://github.com/nikhilchahar1/QuantityMeasurementApp/tree/feature/UC2-FeetAndInchesMeasurementEquality) | Validate equality between two inch values |
 | UC3 | [`feature/UC3-GenericLength`](https://github.com/nikhilchahar1/QuantityMeasurementApp/tree/feature/UC3-GenericLength) | Introduced `LengthUnit` enum with conversion logic |
 | UC4 | [`feature/UC4-YardEquality`](https://github.com/nikhilchahar1/QuantityMeasurementApp/tree/feature/UC4-YardEquality) | Added `YARDS` unit (1 yard = 3 feet = 36 inches) |
 | UC5 | [`feature/UC5-UnitConversion`](https://github.com/nikhilchahar1/QuantityMeasurementApp/tree/feature/UC5-UnitConversion) | Enabled unit-to-unit conversion |
