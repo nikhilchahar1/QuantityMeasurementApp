@@ -53,7 +53,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 			/*
 			 * Check two conditions:
-			 *   -> username is not null 
+			 *   -> username is not null (token was parseable)
 			 *   -> user is not already authenticated for this request
 			 *      (SecurityContextHolder.getContext().getAuthentication() == null
 			 *       means: not yet authenticated)
@@ -86,10 +86,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				}
 			}
 		}catch (Exception e) {
-			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			response.setContentType("application/json");
-			response.getWriter().write("{\"error\":\"Invalid or expired token\"}");
-			return;
+			// Token is invalid, expired, or user was deleted from in-memory DB.
+			// Do NOT return 401 here, just let the request proceed unauthenticated.
+			// Spring Security will enforce authorization rules based on URL later.
+			SecurityContextHolder.clearContext();
 		}
 
 

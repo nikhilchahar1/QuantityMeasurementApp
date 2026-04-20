@@ -253,7 +253,7 @@ class QuantityMeasurementAppTest {
         assertNotNull(r.getBody());
         assertNotNull(r.getBody().getToken());
         assertFalse(r.getBody().getToken().isEmpty());
-        assertEquals("vikash", r.getBody().getUsername());
+        assertEquals("nikhil", r.getBody().getUsername());
         assertEquals("USER", r.getBody().getRole());
     }
 

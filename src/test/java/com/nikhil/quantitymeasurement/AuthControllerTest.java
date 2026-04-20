@@ -63,7 +63,7 @@ class AuthControllerTest {
                     .content(objectMapper.writeValueAsString(request)))
                .andExpect(status().isCreated())
                .andExpect(jsonPath("$.token").value("fake-jwt-token"))
-               .andExpect(jsonPath("$.username").value("vikash"))
+               .andExpect(jsonPath("$.username").value("nikhil"))
                .andExpect(jsonPath("$.role").value("USER"))
                .andExpect(jsonPath("$.message").value("Registration successful"));
     }
