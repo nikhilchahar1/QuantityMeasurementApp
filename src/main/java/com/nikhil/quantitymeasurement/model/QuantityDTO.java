@@ -1,27 +1,23 @@
 package com.nikhil.quantitymeasurement.model;
 
-public class QuantityDTO {
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-	private double value;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class QuantityDTO {
+	
+	@NotNull(message="Value must not be null")
+	private Double value;
+	
+	@NotEmpty(message="Unit must not be empty")
 	private String unit;
-	private String type;
 	
-	public QuantityDTO(double value, String unit, String type) {
-		this.value = value;
-		this.unit = unit;
-		this.type = type;
-	}
-	
-	public double getValue() {
-		return value;
-	}
-	
-	public String getUnit() {
-		return unit;
-	}
-	
-	public String getType() {
-		return type;
-	}
+	@NotEmpty(message="Measurement type must not be empty")
+	private String measurementType;
 	
 }

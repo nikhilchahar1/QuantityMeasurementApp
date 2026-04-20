@@ -1,41 +1,71 @@
 package com.nikhil.quantitymeasurement.model;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
-import com.nikhil.quantitymeasurement.model.QuantityModel;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 
+@Entity
+@Table(
+		name="quantity_measurement_entity",
+		indexes= {
+			@Index(name="idx_operation", columnList="operation"),
+			@Index(name="idx_meas_type", columnList="thisMeasurementType"),
+			@Index(name="idx_created_at", columnList="createdAt"),
+			@Index(name="idx_is_error", columnList="isError")
+		})
 public class QuantityMeasurementEntity {
-	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	private QuantityModel operand1;
-	private QuantityModel operand2;
+	
+	@Column(nullable=false)
+	private Double thisValue;
+	
+	@Column(nullable=false)
+	private String thisUnit;
+	
+	@Column(nullable=false)
+	private String thisMeasurementType;
+	
+	@Column(nullable=false)
+	private Double thatValue;
+	
+	@Column(nullable=false)
+	private String thatUnit;
+	
+	@Column(nullable=false)
+	private String thatMeasurementType;
+	
+	@Column(nullable=false)
 	private String operation;
-	private QuantityModel result;
-	private String measurementType;
-    private LocalDateTime createdAt;
 	
+	private Double resultValue;
+	private String resultUnit;
+	private String resultMeasurementType;
+	private String resultString;
 	
-	public QuantityMeasurementEntity(QuantityModel o1, QuantityModel o2, String operation, QuantityModel result, String measurementType) {
-		this.operand1 = o1;
-		this.operand2 = o2;
-		this.operation = operation;
-		this.result = result;
-		this.measurementType = measurementType;
-        this.createdAt = LocalDateTime.now();
+	private String errorMessage;
+	private boolean isError=false;
+	
+	@Column(updatable=false)
+	private LocalDateTime createdAt;
+	
+	private LocalDateTime updatedAt;
+	
+	@PrePersist
+	protected void onCreate() {
+		createdAt=LocalDateTime.now();
+		updatedAt=LocalDateTime.now();
 	}
 	
-	public Long getId() { return id; }
-    public QuantityModel getOperand1() { return operand1; }
-    public QuantityModel getOperand2() { return operand2; }
-    public String getOperation() { return operation; }
-    public QuantityModel getResult() { return result; }
-    public String getMeasurementType() { return measurementType; }
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setId(Long id) { this.id = id; }
-	
-    @Override
-    public String toString() {
-        return String.format("[%s] %.2f %s %s %.2f %s = %.2f %s", measurementType, operand1.getValue(), operand1.getUnit(), operation, operand2.getValue(), operand2.getUnit(), result.getValue(), result.getUnit());
-    }
-	
+	@PreUpdate
+	protected void onUpdate() {
+		updatedAt=LocalDateTime.now();
+	}
 }

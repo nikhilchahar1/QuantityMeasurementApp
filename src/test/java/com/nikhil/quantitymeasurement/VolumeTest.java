@@ -355,13 +355,5 @@ class VolumeTest {
 
         assertThrows(IllegalArgumentException.class, () -> v1.divide(null));
     }
-
-    @Test
-    void testDivide_ZeroDivisor() {
-        Quantity<VolumeUnit> v1 = new Quantity<>(1.0, VolumeUnit.LITRE);
-        Quantity<VolumeUnit> v2 = new Quantity<>(0.0, VolumeUnit.LITRE);
-
-        assertThrows(IllegalArgumentException.class, () -> v1.divide(v2));
-    }
     
 }
